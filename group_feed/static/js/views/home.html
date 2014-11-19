@@ -1,0 +1,153 @@
+<!-- Top bar -->
+<div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-3 top-panels top-panels-not-right">
+        <h2>Peerful</h2>
+    </div>
+    <div class="col-lg-7 col-md-6 col-sm-6 top-panels top-panels-not-right">
+        <div ng-repeat="user in currentUserInfo">
+
+        </div>
+        <div ng-hide="loginShow">
+            <br>
+            <h5 class="inline-block">Login:</h5>
+            <form class="inline-block form-inline" role="form" data-ng-submit="login();">
+                <input style="width: 150px; height: 30px;" type="text" class="form-control login-form" ng-model="loginUsername" placeholder="Username"/>
+                <input style="width: 100px; height: 30px;" type="password" class="form-control login-form" ng-model="loginPassword" placeholder="Password"/>
+                <input type="submit" class="btn btn-primary btn-xs inline-block" value="Login">
+            </form>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div style="padding-left: 16px" class="col-lg-1 col-md-1 col-sm-1 well-sm">
+                <!--<h5 ng-hide="topChosen" style="display: inline-block;" ng-click="sortBy = 'top'">Top</h5>-->
+                <h5 ng-hide="topChosen" class="inline-block">Top</h5>
+
+            </div>
+            <div style="padding-left: 14px" class="col-lg-11 col-md-11 col-sm-11 well-sm">
+                <!-- <h5 style="display: inline-block" ng-click="sortBy = 'recent'">Recent</h5> -->
+                <h5 class="inline-block">Recent</h5>
+                <h5 class="inline-block">
+                <span style="padding-left: 20px; font-size: 14px;" class="glyphicon glyphicon-search inline-block" aria-hidden="true"></span>
+                </h5>
+                <input id="link-search" type="text" placeholder="Search" ng-model="searchText"/>
+                <button class="btn btn-success pull-right" id="submit-link-button" ng-click="linkSubmit()">Submit a link</button>
+            </div>
+        </div>
+        <!--
+        </div>
+            <button class="btn btn-success">Register</button>
+        <div class="col-md-7">
+        </div>
+        -->
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 top-panels" style="border-left: 1px solid #d3d3d3;">
+        <div ng-repeat="user in currentUserInfo">
+            <h2 align="center">{{ user.first_name }} {{ user.last_name }}</h2>
+        </div>
+    </div>
+</div>
+<!-- End top bar -->
+
+<!-- Main -->
+<div class="row">
+    <!-- Left panel -->
+    <div class="col-lg-2 col-md-3 col-sm-3 allLinks main-panels" style=" margin-top: -1px; border-top: 1px solid #43ac6a">
+        <h4 class="inline-block" style="margin-top: 20px; color: red; cursor: pointer;" ng-click="clearFilter();">All Groups</h4>
+        <accordion close-others="oneAtATime">
+            <div ng-repeat="group in allGroups | filter: groupSearchText">
+            <accordion-group is-open="status.open">
+                <accordion-heading ng-class="'accordion-header'">
+                    <div ng-class="'color' + ($index % 4);"><h5 style="cursor: pointer;" ng-click="setActiveGroup(group);">{{ group.title }}</h5></div>
+                </accordion-heading>
+                {{ group.description }}
+            </accordion-group>
+            </div>
+        </accordion>
+        <h5 class="small" style="color: #008cba" ng-click="showCreateNewGroup()">Create a new group</h5>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4 ng-hide="createNewGroup">Create a new Group</h4>
+                <input ng-hide="createNewGroup"  style="width: 99%; margin-bottom: 2%" type="text" ng-model="newGroupTitle" placeholder="Title"/>
+                <input ng-hide="createNewGroup" style="width: 99%; height: 100px;"  type="text" ng-model="newGroupDesc" placeholder="Description"/>
+                <button ng-hide="createNewGroup" style="margin-top: 2%; width: 99%; padding-top: 3px; padding-bottom: 3px" class="btn btn-success btn-block" ng-click="newGroup()">Submit!</button>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <!-- Middle panel -->
+    <div class="col-lg-7 col-md-6 col-sm-6 allLinks main-panels" style="margin-top: -1px; border-top: 1px solid #43ac6a">
+        <div ng-hide="showAllLinks">
+            <div ng-hide="linkPreview" class="row" style="height: 10%; margin-bottom: 1%; margin-top: 1%;">
+                <div class="col-lg-1 col-md-1 col-sm-1 scoreDiv">
+                    <div class="score" style="margin-left: 2px">
+                        <span  style="font-size: 20px; padding-left: 2px" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span><br>
+                        <span class="inline-block" style="font-size: 18px; padding-left: 6px; margin-top: -3px">0<br></span>
+                        <span style="font-size: 20px;" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <div class="inline-block">
+                        <h4><a href="#/link/{{ link.id }}">{{ newLinkTitle }}</a> <span class="small">({{ newLinkURL }})</span></h4>
+                        <h5>{{ newLinkDesc }}</h5>
+                        <h6 class="small">Posted by <i>you!</i> to <b>{{ newGroupChoice.title }}</b> | {{ link.comments.length }} Comments</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="links">
+                <!-- <div style="height: 10%;" ng-repeat="link in allLinks | filter: searchText | filter: activeGroup | sortMethod: sortBy"> -->
+                <div style="height: 10%;" ng-repeat="link in allLinks | filter: searchText | filter: activeGroup">
+                    <div ng-class-odd="'odd'" ng-class-even="'even'">
+                        <div class="row">
+                            <div class="col-lg-1 col-md-1 col-sm-1 scoreDiv">
+                                <div class="score">
+                                    <span style="font-size: 20px; padding-left: 2px" class="glyphicon glyphicon-chevron-up" aria-hidden="true" ng-click="upVote(link)"></span><br>
+                                    <span class="inline-block" style="font-size: 18px; padding-left: 6px; margin-top: -3px">{{ link.score }}<br></span>
+                                    <span style="font-size: 20px" class="glyphicon glyphicon-chevron-down" aria-hidden="true" ng-click="downVote(link)"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9">
+                                <div class="inline-block">
+                                    <h4><a href="#/link/{{ link.id }}">{{ link.title }}</a> <span class="small">({{ link.url }})</span></h4>
+                                    <h5>{{ link.description }}</h5>
+                                    <h6 class="small">Posted by <i style="color: #008cba; cursor: pointer" ng-click="setActiveUser(link);">{{ link.submitter }}</i> to <b>{{ link.group_name }}</b> | {{ link.comments.length }} Comments</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 scoreDiv">
+                                <span style="color: red; font-size: 10px; margin-top: 40%" class="glyphicon glyphicon-flag" aria-hidden="true" ng-click="favorite(link)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="col-lg-3 col-md-3 col-sm-3 main-panels" style="border-left: 1px solid #d3d3d3;">
+        <div ng-repeat="user in currentUserInfo">
+            <br>
+            <div align="center" style="margin: 0 auto;">
+                <img class="profile-photo" ng-src="{{ user.profile_photo }}" alt=""/>
+            </div>
+            <br>
+            <h4 class="inline-block" ng-hide="userAbout">{{ user.bio }}</h4><br>
+            <h5 ng-hide="userAbout">Member since {{ user.date_joined }}</h5>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: -3px;">
+                <h4 class="inline-block" ng-hide="createNewLink">Submit a link</h4><h5 style="margin-right: 5%; color: #008cba; cursor: pointer" class="pull-right inline-block" ng-hide="createNewLink" ng-click="previewLink()">Preview</h5>
+                <input ng-hide="createNewLink" style="width: 100%; margin-bottom: 2%" type="text" ng-model="newLinkTitle" placeholder="Title"/>
+                <input ng-hide="createNewLink" style="width: 100%; margin-bottom: 2%" type="text" ng-model="newLinkURL" placeholder="URL (remember to include http://)"/>
+                <input ng-hide="createNewLink" style="width: 100%; height: 100px;"  type="text" ng-model="newLinkDesc" placeholder="Description"/>
+                <select ng-hide="createNewLink" style="width: 50%;" ng-model="newGroupChoice" ng-options="group as group.title for group in allGroups"><option value="">Choose group</option></select>
+                <button ng-hide="createNewLink" style="width: 30%; margin-top: 1%; margin-left: 18%;" class="btn btn-success btn-xs" ng-click="newLink()">Submit!</button>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

@@ -1,0 +1,100 @@
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.allLinks {
+    display: block;
+    overflow-x: hidden;
+}
+
+
+.allGroups {
+    display: block;
+    overflow-x: hidden;
+}
+
+.hr-divider {
+    background-color: lightsteelblue;
+    height: 1px;
+    border: 0;
+}
+
+.even {
+    background-color: white;
+    padding: 5px 5px 5px 2%;
+    margin-left: -3%;
+    margin-right: -10%;
+}
+
+.odd {
+    background-color: #eaeaea;
+    padding: 5px 5px 5px 2%;
+    margin-left: -3%;
+    margin-right: -10%;
+}
+
+.login-form {
+    border: none;
+    border-bottom: 1px solid blue;
+    font-size: 12px;
+    box-shadow: none;
+}
+
+.score {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.color0 {
+    color: Black;
+}
+
+.color1 {
+    color: Blue;
+}
+
+.color2 {
+    color: #1cac19;
+}
+
+.color3 {
+    color: #dd6d09;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+#link-search {
+    font-size: 13px;
+    margin-left: 10px;
+    border: none;
+    border-bottom: 1px dashed #d3d3d3;
+}
+
+#submit-link-button {
+    width: 30%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 3px;
+}
+
+.main-panels {
+    height: 90vh;
+    border-right: 1px solid #d3d3d3;
+}
+
+.top-panels {
+    height: 10vh;
+}
+
+.top-panels-not-right {
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.profile-photo {
+    height: 230px;
+    box-shadow: 0 10px 6px -6px #777;
+}

@@ -1,0 +1,55 @@
+{% load staticfiles %}
+{% load djangular_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <!-- jQuery -->
+{#    <script src="{% static "js/vendors/jquery.js" %}"></script>#}
+
+    <!------- Angular ------->
+    <script src="{% static "js/vendors/angular/angular.js" %}"></script>
+    <script src="{% static "js/vendors/angular/angular-route.js" %}"></script>
+{#    <script src="{% static "js/vendors/bootstrap.js" %}"></script>#}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-cookies.js"></script>
+
+    <!------- Bootstrap ------->
+    <script src="{% static "js/vendors/angular-ui/ui-bootstrap-tpls-0.11.2.min.js" %}"></script>
+
+    <!-- JavaScript -->
+    <script src="{% static "js/app.js" %}"></script>
+
+    <!------- Resources ------->
+
+    <!------- Filters ------->
+
+    <!------- Factories ------->
+    <script src="{% static "js/factories/AuthFactory.js" %}"></script>
+    <script src="{% static "js/factories/userFactory.js" %}"></script>
+
+    <!------- Controllers ------->
+    <script src="{% static "js/controllers/loginController.js" %}"></script>
+    <script src="{% static "js/controllers/linkController.js" %}"></script>
+{#    <script src="{% static "js/controllers/logoutController.js" %}"></script>#}
+    <script src="{% static "js/controllers/homeController.js" %}"></script>
+    <script src="{% static "js/controllers/profileController.js" %}"></script>
+    <script src="{% static "js/controllers/registerController.js" %}"></script>
+    <script src="{% static "js/filters/sortMethodFilter.js" %}"></script>
+
+    <!------- Directives ------->
+    <script src="{% static "js/directives/hrDirective.js" %}"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "css/home.css" %}">
+
+</head>
+<body>
+    <div style="margin: 0; width: 100%;" class="container">
+        <div ng-app="merge">
+            <div ng-view></div>
+        </div>
+    </div>
+</body>
+</html>
