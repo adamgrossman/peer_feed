@@ -1,12 +1,13 @@
 <!-- Top bar -->
 <div class="row">
     <div style="border-bottom: 1px solid #43ac6a; height: 10vh" class="col-lg-2 col-md-3 col-sm-3">
-        <h2><a href="http://127.0.0.1:8000/feed/#/">Peerful</a></h2>
+        <a href="http://127.0.0.1:8000/feed/#/">        <h2 class="inline-block">Peer Post </h2><i style="font-size: 24px; margin-left: 11px; color: #008cba" class="fa fa-paper-plane"></i>
+</a>
     </div>
     <div style="border-bottom: 1px solid #43ac6a; height: 10vh" class="col-lg-7 col-md-6 col-sm-6">
         <div ng-repeat="link in linkInfo">
             <div class="row">
-                <div style="margin-left: 2%">
+                <div style="margin-left: 2%; margin-top: 20px;">
                     <h4>You are viewing: {{ link.title }} posted by <i>{{ link.submitter }}</i> to <b>{{ link.group_name }}</b></h4>
                     <h6 class="small">Trouble viewing this link? Go to the URL directly at {{ link.url }}</h6>
                 </div>
@@ -35,21 +36,41 @@
     <!-- Right panel -->
     <div class="col-lg-3 col-md-3 col-sm-3" style="height: 90vh; border-left: 1px solid #d3d3d3;">
         <div ng-repeat="link in linkInfo">
-            <br/>
             <h4>Info</h4>
             <hr>
             <h5>{{ link.description }}</h5>
             <h6>Score: {{ link.score }}</h6>
             <h6>Submitted by: {{ link.submitter }}</h6>
-            <h6>Favorited by: {{ link.star }}</h6>
         </div>
         <br/>
         <h4>Comments</h4>
         <hr>
+        <!--
         <div ng-repeat="comment in linkComments">
             <div>
-                <h5>{{ comment.body }}</h5>
+                <h5 class="inline-block">{{ comment.body }}</h5> <h6 class="inline-block"><i>({{ comment.author }})</i></h6>
+                <div style="margin-left: 15px" ng-repeat="child in comment.children">
+                    <h5 class="inline-block">- {{ child.body }}</h5>
+                    <h6 class="inline-block"><i>({{ comment.author }})</i></h6>
+                </div>
             </div>
         </div>
+        <ul>
+        -->
+        <div ng-repeat="comment in linkComments">
+            <h5 class="inline-block">{{ comment.body }} <span class="inline-block"> <i class="small"> ({{ comment.author }})</i></span></h5>
+            <div ng-if="comment.children">
+                <div style="border-left: 1px dashed grey; padding-left: 15px; margin-left: 10px" ng-repeat="child in comment.children">
+                    <h5 class="inline-block"> {{ child.body }} <span class="inline-block"> <i class="small"> ({{ child.author }})</i></span></h5>
+                    <div ng-if="child.children">
+                        <div style="border-left: 1px dashed grey; padding-left: 15px; margin-left: 10px" ng-repeat="grandchild in child.children">
+                            <h5 class="inline-block"> {{ grandchild.body }} <span class="inline-block"> <i class="small"> ({{ grandchild.author }})</i></span></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>

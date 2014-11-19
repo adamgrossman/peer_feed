@@ -11,6 +11,7 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
     $scope.groupLinks = [];
     $scope.allGroups = [];
     $scope.oneAtATime = true;
+    $scope.sortBy = 'top';
 //    $scope.featuredLink = [];
 
 //    $scope.newLinkDesc = '(Link Description)';
@@ -113,10 +114,14 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
                         $scope.currentUserInfo = response;
                     });
 
+                    $scope.getAllLinks();
+
                 }, function () {
                     console.log('failed');
                 });
         }
+
+
     };
 
 
@@ -153,6 +158,8 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
         $scope.newLinkDesc = "";
         $scope.newGroupChoice = "";
         $scope.linkPreview = true;
+        $scope.createNewLink = true;
+
     };
 
 
@@ -168,15 +175,15 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
 
     $scope.getAllLinks();
 
-    $scope.getGroupLinks = function(group) {
-        var groupId = group.id;
-        $scope.showAllLinks = true;
-        $scope.showGroupLinks = true;
-        $http.get('/groups/' + groupId + '/.json')
-            .success(function (response) {
-            $scope.groupLinks = response.links;
-        });
-    };
+//    $scope.getGroupLinks = function(group) {
+//        var groupId = group.id;
+//        $scope.showAllLinks = true;
+//        $scope.showGroupLinks = true;
+//        $http.get('/groups/' + groupId + '/.json')
+//            .success(function (response) {
+//            $scope.groupLinks = response.links;
+//        });
+//    };
 
     $scope.setActiveGroup = function (group) {
         $scope.activeGroup = group.title;
@@ -214,7 +221,7 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
 //        console.log($scope.activeGroup.title);
 //    };
 
-
+//
     $scope.clearFilter = function () {
         $scope.activeGroup = "";
         $scope.getAllLinks();

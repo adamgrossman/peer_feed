@@ -32,4 +32,5 @@ function linkController($scope, $sce, $routeParams, $window, UserFactory, $http)
             $scope.currentLinkUrl = $sce.trustAsResourceUrl(response.url);
             $scope.linkInfo.push(response);
         });
+
 }

@@ -41,6 +41,7 @@ class MemberViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(member)
         return Response(serializer.data)
 
+
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer

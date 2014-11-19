@@ -1,7 +1,7 @@
 <!-- Top bar -->
 <div class="row">
     <div class="col-lg-2 col-md-3 col-sm-3 top-panels top-panels-not-right">
-        <h2>Peerful</h2>
+        <h2 class="inline-block">Peer Post </h2><i style="font-size: 24px; margin-left: 11px; color: #008cba" class="fa fa-paper-plane"></i>
     </div>
     <div class="col-lg-7 col-md-6 col-sm-6 top-panels top-panels-not-right">
         <div ng-repeat="user in currentUserInfo">
@@ -18,13 +18,13 @@
         </div>
         <div class="row" style="margin-top: 10px;">
             <div style="padding-left: 16px" class="col-lg-1 col-md-1 col-sm-1 well-sm">
-                <!--<h5 ng-hide="topChosen" style="display: inline-block;" ng-click="sortBy = 'top'">Top</h5>-->
-                <h5 ng-hide="topChosen" class="inline-block">Top</h5>
+                <h5 ng-hide="topChosen" style="display: inline-block;" ng-click="sortBy = 'top'">Top</h5>
+                <!--<h5 ng-hide="topChosen" class="inline-block">Top</h5>-->
 
             </div>
             <div style="padding-left: 14px" class="col-lg-11 col-md-11 col-sm-11 well-sm">
-                <!-- <h5 style="display: inline-block" ng-click="sortBy = 'recent'">Recent</h5> -->
-                <h5 class="inline-block">Recent</h5>
+                <h5 style="display: inline-block" ng-click="sortBy = 'recent'">Recent</h5>
+                <!--<h5 class="inline-block">Recent</h5>-->
                 <h5 class="inline-block">
                 <span style="padding-left: 20px; font-size: 14px;" class="glyphicon glyphicon-search inline-block" aria-hidden="true"></span>
                 </h5>
@@ -96,8 +96,8 @@
             </div>
 
             <div class="links">
-                <!-- <div style="height: 10%;" ng-repeat="link in allLinks | filter: searchText | filter: activeGroup | sortMethod: sortBy"> -->
-                <div style="height: 10%;" ng-repeat="link in allLinks | filter: searchText | filter: activeGroup">
+                <div style="height: 10%;" ng-repeat="link in allLinks | filter: searchText | filter: activeGroup | sortMethod: sortBy">
+                <!-- <div style="height: 10%;" ng-repeat="link in allLinks | filter: searchText | filter: activeGroup"> -->
                     <div ng-class-odd="'odd'" ng-class-even="'even'">
                         <div class="row">
                             <div class="col-lg-1 col-md-1 col-sm-1 scoreDiv">
@@ -111,11 +111,12 @@
                                 <div class="inline-block">
                                     <h4><a href="#/link/{{ link.id }}">{{ link.title }}</a> <span class="small">({{ link.url }})</span></h4>
                                     <h5>{{ link.description }}</h5>
+                                    <h5>{{ link.created_at }}</h5>
                                     <h6 class="small">Posted by <i style="color: #008cba; cursor: pointer" ng-click="setActiveUser(link);">{{ link.submitter }}</i> to <b>{{ link.group_name }}</b> | {{ link.comments.length }} Comments</h6>
                                 </div>
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 scoreDiv">
-                                <span style="color: red; font-size: 10px; margin-top: 40%" class="glyphicon glyphicon-flag" aria-hidden="true" ng-click="favorite(link)"></span>
+                                <span style="color: #008cba; font-size: 14px; margin-top: 30%" class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-click="favorite(link)"></span>
                             </div>
                         </div>
                     </div>
@@ -133,7 +134,8 @@
             </div>
             <br>
             <h4 class="inline-block" ng-hide="userAbout">{{ user.bio }}</h4><br>
-            <h5 ng-hide="userAbout">Member since {{ user.date_joined }}</h5>
+            <h5 ng-hide="userAbout">Member since {{ user.date_joined | date:'yyyy-MM-dd' }}</h5>
+            <h5 ng-hide="userAbout">Authored posts: {{ user.posted_links.length }}</h5>
             <hr>
         </div>
         <div class="row">
