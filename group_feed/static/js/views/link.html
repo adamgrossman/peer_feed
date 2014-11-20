@@ -1,20 +1,20 @@
 <!-- Top bar -->
 <div class="row">
     <div style="border-bottom: 1px solid #43ac6a; height: 10vh" class="col-lg-2 col-md-3 col-sm-3">
-        <a href="http://127.0.0.1:8000/feed/#/">        <h2 class="inline-block">Peer Post </h2><i style="font-size: 24px; margin-left: 11px; color: #008cba" class="fa fa-paper-plane"></i>
-</a>
+        <a href="http://127.0.0.1:8000/feed/#/"><h2 class="inline-block">Peer Post </h2><i style="font-size: 24px; margin-left: 11px; color: #008cba" class="fa fa-paper-plane"></i></a>
     </div>
     <div style="border-bottom: 1px solid #43ac6a; height: 10vh" class="col-lg-7 col-md-6 col-sm-6">
         <div ng-repeat="link in linkInfo">
             <div class="row">
                 <div style="margin-left: 2%; margin-top: 20px;">
-                    <h4>You are viewing: {{ link.title }} posted by <i>{{ link.submitter }}</i> to <b>{{ link.group_name }}</b></h4>
-                    <h6 class="small">Trouble viewing this link? Go to the URL directly at {{ link.url }}</h6>
+                    <h4>You are viewing: {{ link.title }} posted by <i style="cursor: pointer; color: #008cba;" ng-click="getSubmitterUser(link.submitter)">{{ link.submitter }}</i> to <b>{{ link.group_name }}</b></h4>
+                    <!-- <h6 class="small">Trouble viewing this link? Go to the URL directly at {{ link.url }}</h6> -->
+                    <h5>Description: {{ link.description }}</h5>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-3" style="border-left: 1px solid #d3d3d3;  height: 10vh">
+    <div class="col-lg-3 col-md-3 col-sm-3" style="border-left: 1px solid #d3d3d3;height: 10vh">
         <div ng-repeat="link in linkInfo">
             <h2 align="center">{{ link.title }}</h2>
         </div>
@@ -35,42 +35,56 @@
 
     <!-- Right panel -->
     <div class="col-lg-3 col-md-3 col-sm-3" style="height: 90vh; border-left: 1px solid #d3d3d3;">
-        <div ng-repeat="link in linkInfo">
-            <h4>Info</h4>
-            <hr>
-            <h5>{{ link.description }}</h5>
-            <h6>Score: {{ link.score }}</h6>
-            <h6>Submitted by: {{ link.submitter }}</h6>
-        </div>
-        <br/>
-        <h4>Comments</h4>
-        <hr>
-        <!--
-        <div ng-repeat="comment in linkComments">
-            <div>
-                <h5 class="inline-block">{{ comment.body }}</h5> <h6 class="inline-block"><i>({{ comment.author }})</i></h6>
-                <div style="margin-left: 15px" ng-repeat="child in comment.children">
-                    <h5 class="inline-block">- {{ child.body }}</h5>
-                    <h6 class="inline-block"><i>({{ comment.author }})</i></h6>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="height: 30vh;">
+                <div ng-hide="writeComment">
+                    <h4>Write a Comment <span class="small" ng-click="showNewReply()">(Back to poster info)</span></h4>
+                    <hr/>
+                    <input ng-hide="writeComment" style="width: 99%; height: 100px;"  type="text" ng-model="newCommentBody" placeholder="Description"/>
+                    <button ng-hide="writeComment" style="margin-top: 2%; width: 99%; padding-top: 3px; padding-bottom: 3px" class="btn btn-success btn-block" ng-click="makeComment()">Submit!</button>
                 </div>
-            </div>
-        </div>
-        <ul>
-        -->
-        <div ng-repeat="comment in linkComments">
-            <h5 class="inline-block">{{ comment.body }} <span class="inline-block"> <i class="small"> ({{ comment.author }})</i></span></h5>
-            <div ng-if="comment.children">
-                <div style="border-left: 1px dashed grey; padding-left: 15px; margin-left: 10px" ng-repeat="child in comment.children">
-                    <h5 class="inline-block"> {{ child.body }} <span class="inline-block"> <i class="small"> ({{ child.author }})</i></span></h5>
-                    <div ng-if="child.children">
-                        <div style="border-left: 1px dashed grey; padding-left: 15px; margin-left: 10px" ng-repeat="grandchild in child.children">
-                            <h5 class="inline-block"> {{ grandchild.body }} <span class="inline-block"> <i class="small"> ({{ grandchild.author }})</i></span></h5>
+
+                <div ng-hide="aboutPoster">
+                    <div ng-repeat="link in linkInfo">
+                        <h4 class="inline-block">About the Poster</h4>
+                        <hr>
+                    </div>
+                        <div ng-repeat="user in postedUserInfo">
+                        <div class="col-md-6 img-responsive">
+                            <img class="link-profile-photo inline-block" ng-src="{{ user.profile_photo }}" alt=""/>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="inline-block">{{ user.first_name }} {{ user.last_name }}</h4>
+                            <h5 class="inline-block">{{ user.bio }}</h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" >
+                <h4>Comments</h4>
+                <hr>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" style="height: 45vh; display: block; overflow-y: scroll; cursor: pointer;">
+                <div style="margin-top: -7px;" ng-repeat="comment in linkComments">
+                    <h5 class="inline-block"><span class="inline-block" ng-click="getUserInfo(comment)"> <i style="color: #008cba;"> {{ comment.author }} - </i></span> {{ comment.body }}</h5>
+                    <h6 style="margin-top: -5px; color: #43ac6a;" class="small" ng-click="makeChildComment(comment)">Reply</h6>
+                    <div ng-if="comment.children">
+                        <div style="padding-left: 5px; margin-left: 13px; margin-top: -7px;" ng-repeat="child in comment.children">
+                            <h5 class="inline-block"><span class="inline-block" ng-click="getUserInfo(child)"><i class="fa fa-angle-right"></i><i style="color: #008cba;"> {{ child.author }} - </i></span> {{ child.body }}</h5>
+                            <h6 style="margin-top: -5px; color: #43ac6a; padding-left: 10px" class="small" ng-click="makeChildComment(child)">Reply</h6>
+                            <div ng-if="child.children">
+                                <!-- <div style="border-left: 1px dashed grey; padding-left: 15px; margin-left: 10px" ng-repeat="grandchild in child.children"> -->
+                                <div style="padding-left: 15px; margin-left: 13px; margin-top: -7px;" ng-repeat="grandchild in child.children">
+                                    <h5 class="inline-block"><span class="inline-block" ng-click="getUserInfo(grandchild)"><i class="fa fa-angle-double-right"></i><i style="color: #008cba;"> {{ grandchild.author }} - </i></span> {{ grandchild.body }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button style="width: 90%; margin-left: 18px; padding-top: 5px; padding-bottom: 5px;" ng-click="showNewReply()" class="btn btn-block btn-info">Write a comment</button>
+        </div>
     </div>
 </div>

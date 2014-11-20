@@ -1,7 +1,7 @@
 <!-- Top bar -->
 <div class="row">
     <div class="col-lg-2 col-md-3 col-sm-3 top-panels top-panels-not-right">
-        <h2 class="inline-block">Peer Post </h2><i style="font-size: 24px; margin-left: 11px; color: #008cba" class="fa fa-paper-plane"></i>
+        <a href="http://127.0.0.1:8000/feed/#/"><h2 class="inline-block">Peer Post </h2><i style="font-size: 24px; margin-left: 11px; color: #008cba" class="fa fa-paper-plane"></i></a>
     </div>
     <div class="col-lg-7 col-md-6 col-sm-6 top-panels top-panels-not-right">
         <div ng-repeat="user in currentUserInfo">
@@ -50,7 +50,8 @@
 <!-- Main -->
 <div class="row">
     <!-- Left panel -->
-    <div class="col-lg-2 col-md-3 col-sm-3 allLinks main-panels" style=" margin-top: -1px; border-top: 1px solid #43ac6a">
+    <div class="col-lg-2 col-md-3 col-sm-3 allLinks main-panels" style=" margin-top: -1px; border-top: 1px solid #43ac6a; border-right: 1px solid #d3d3d3;
+">
         <h4 class="inline-block" style="margin-top: 20px; color: red; cursor: pointer;" ng-click="clearFilter();">All Groups</h4>
         <accordion close-others="oneAtATime">
             <div ng-repeat="group in allGroups | filter: groupSearchText">
@@ -111,12 +112,12 @@
                                 <div class="inline-block">
                                     <h4><a href="#/link/{{ link.id }}">{{ link.title }}</a> <span class="small">({{ link.url }})</span></h4>
                                     <h5>{{ link.description }}</h5>
-                                    <h5>{{ link.created_at }}</h5>
-                                    <h6 class="small">Posted by <i style="color: #008cba; cursor: pointer" ng-click="setActiveUser(link);">{{ link.submitter }}</i> to <b>{{ link.group_name }}</b> | {{ link.comments.length }} Comments</h6>
+                                    <h6 class="small">Posted by <i style="color: #008cba; cursor: pointer" ng-click="setActiveUser(link);">{{ link.submitter }}</i> to <b>{{ link.group_name }}</b> on <span>{{ link.created_at | date:'yyyy-MM-dd'  }}</span> | {{ link.comments.length }} Comments</h6>
                                 </div>
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 scoreDiv">
-                                <span style="color: #008cba; font-size: 14px; margin-top: 30%" class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-click="favorite(link)"></span>
+                                <!-- <span style="color: deeppink; font-size: 14px; margin-top: 30%" class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-click="favorite(link)"></span> -->
+                                <span style="color: lightcoral; font-size: 14px; margin-top: 30%" class="glyphicon glyphicon-flag" aria-hidden="true" ng-click="favorite(link)"></span>
                             </div>
                         </div>
                     </div>
@@ -149,7 +150,4 @@
             </div>
         </div>
     </div>
-
-
-
 </div>

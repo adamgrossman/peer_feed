@@ -60,15 +60,21 @@ class ChildCommentSerializer(serializers.Serializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    children = ChildCommentSerializer(many=True)
+    children = ChildCommentSerializer(many=True,)
     author = serializers.SerializerMethodField('get_author')
 
     class Meta:
         model = Comment
-        fields = ('body', 'author', 'parent', 'children')
+        fields = ('id', 'body', 'author', 'parent', 'children')
 
     def get_author(self, obj):
         return obj.author
+
+
+class NewCommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
 
 
 class LinkSerializer(serializers.ModelSerializer):
@@ -102,4 +108,3 @@ class LinkSerializer(serializers.ModelSerializer):
         up_votes = Vote.objects.filter(up_vote=True, link=obj).count()
         total_score = up_votes - down_votes
         return total_score
-

@@ -83,7 +83,6 @@ body {
 
 .main-panels {
     height: 90vh;
-    border-right: 1px solid #d3d3d3;
 }
 
 .top-panels {
@@ -98,3 +97,10 @@ body {
     height: 230px;
     box-shadow: 0 10px 6px -6px #777;
 }
+
+.link-profile-photo {
+    height: 140px;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+

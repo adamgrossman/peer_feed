@@ -10,6 +10,7 @@ router = routers.DefaultRouter()
 router.register(r'members', MemberViewSet, base_name='members')
 router.register(r'groups', GroupViewSet, base_name='groups')
 router.register(r'links', LinkViewSet, base_name='links')
+router.register(r'comments', CommentViewSet, base_name='comments')
 
 urlpatterns = patterns('',
     # url(r'^$', 'merge.views.home', name='home'),

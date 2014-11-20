@@ -17,68 +17,23 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
 //    $scope.newLinkDesc = '(Link Description)';
 
     $scope.linkSubmit = function () {
-        if($scope.createNewLink == true){
-            $scope.createNewLink = false;
-//            $scope.userAbout = true;
-        }
-        else {
-            $scope.createNewLink = true;
-//            $scope.userAbout = false;
-        }
+        $scope.createNewLink = $scope.createNewLink != true;
     };
 
     $scope.showGroupSearch = function () {
-        if($scope.groupSearch == true){
-            $scope.groupSearch = false;
-//            $scope.userAbout = true;
-        }
-        else {
-            $scope.groupSearch = true;
-//            $scope.userAbout = false;
-        }
+        $scope.groupSearch = $scope.groupSearch != true;
     };
 
-//    $scope.aboutMe = function () {
-//        if($scope.createNewLink == false){
-//            $scope.createNewLink = true;
-//        }
-//
-//        if($scope.userAbout == true){
-//            $scope.userAbout = false;
-//            $scope.createNewLink = true;
-//        }
-//        else {
-//            $scope.userAbout = true;
-//            $scope.createNewLink = true;
-//        }
-//    };
-
-
     $scope.previewLink = function () {
-        if($scope.linkPreview == true){
-            $scope.linkPreview = false;
-        }
-        else {
-            $scope.linkPreview = true;
-        }
+        $scope.linkPreview = $scope.linkPreview != true;
     };
 
     $scope.showCreateNewGroup = function () {
-        if($scope.createNewGroup == true){
-            $scope.createNewGroup = false;
-        }
-        else {
-            $scope.createNewGroup = true;
-        }
+        $scope.createNewGroup = $scope.createNewGroup != true;
     };
 
     $scope.aboutMe = function () {
-        if($scope.userAbout == true){
-            $scope.userAbout= false;
-        }
-        else {
-            $scope.userAbout = true;
-        }
+        $scope.userAbout = $scope.userAbout != true;
     };
 
 //  CHECK IF A USER IS LOGGED IN
@@ -94,9 +49,6 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
             $scope.currentUserInfo = response;
         });
     }
-
-//  USER PHOTO
-//    var host = 'http://127.0.0.1:8000/';
 
 //  LOG IN AND SHOW USER INFO
     $scope.login = function () {
@@ -120,8 +72,6 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
                     console.log('failed');
                 });
         }
-
-
     };
 
 
@@ -162,7 +112,6 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
 
     };
 
-
 //  SHOW ALL GROUPS
     $scope.getAllLinks = function () {
         $scope.showAllLinks = false;
@@ -175,21 +124,9 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
 
     $scope.getAllLinks();
 
-//    $scope.getGroupLinks = function(group) {
-//        var groupId = group.id;
-//        $scope.showAllLinks = true;
-//        $scope.showGroupLinks = true;
-//        $http.get('/groups/' + groupId + '/.json')
-//            .success(function (response) {
-//            $scope.groupLinks = response.links;
-//        });
-//    };
-
     $scope.setActiveGroup = function (group) {
         $scope.activeGroup = group.title;
         console.log($scope.activeGroup.title);
-//        $scope.allGroups.isShown = null;
-//        $scope.group.isShown = true;
     };
 
     $scope.setActiveUser = function (user) {
@@ -200,28 +137,10 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
             console.log('factory worked');
             console.log(response);
             $scope.currentUserInfo = response;
-
-//        });
-
         });
-
-//        if(this.selectedGroup == true){
-//            this.selectedGroup = false;
-//            this.groupDescription = false;
-//        }
-//        else {
-//            this.selectedGroup = true;
-//            this.groupDescription = true;
-//        }
     };
 
 
-//    $scope.setActiveView = function (group) {
-//        $scope.activeGroup = group.title;
-//        console.log($scope.activeGroup.title);
-//    };
-
-//
     $scope.clearFilter = function () {
         $scope.activeGroup = "";
         $scope.getAllLinks();
@@ -270,7 +189,6 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
                 console.log(err)
             });
     };
-
 
     $scope.favorite = function (link) {
         $http.post('/links/' + link.id + '/favorite/', {})

@@ -4,8 +4,9 @@ from rest_framework.authentication import BasicAuthentication, SessionAuthentica
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
-from group_feed.api.serializers import MemberSerializer, LinkSerializer, GroupSerializer
-from group_feed.models import Member, Link, Group, Vote
+from group_feed.api.serializers import MemberSerializer, LinkSerializer, GroupSerializer, CommentSerializer, \
+    NewCommentSerializer
+from group_feed.models import Member, Link, Group, Vote, Comment
 
 
 class MemberViewSet(viewsets.ModelViewSet):
@@ -45,6 +46,24 @@ class MemberViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = NewCommentSerializer
+
+    def pre_save(self, obj):
+        obj.posted_user = self.request.user
+
+
+    #
+    # @list_route(methods=['post'])
+    # def new(self, request):
+    #     pass
+    #     # link = Link.objects.get(pk=)
+    #     Comment.objects.create()
+    #     # comment = Comment.objects.get()
+    #     return Response(status=status.HTTP_200_OK)
 
 
 class LinkViewSet(viewsets.ModelViewSet):
