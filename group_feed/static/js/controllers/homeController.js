@@ -11,7 +11,7 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
     $scope.groupLinks = [];
     $scope.allGroups = [];
     $scope.oneAtATime = true;
-    $scope.sortBy = 'top';
+    $scope.sortBy = 'hot';
 //    $scope.featuredLink = [];
 
 //    $scope.newLinkDesc = '(Link Description)';
@@ -139,7 +139,6 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
             $scope.currentUserInfo = response;
         });
     };
-
 
     $scope.clearFilter = function () {
         $scope.activeGroup = "";

@@ -60,7 +60,11 @@ body {
 }
 
 .color3 {
-    color: #dd6d09;
+    color: lightcoral;
+}
+
+.link-blue {
+    color: #008cba;
 }
 
 .inline-block {
@@ -103,4 +107,37 @@ body {
     box-shadow: 0 10px 6px -6px #777;
 }
 
+.chevrons {
+    font-size: 20px;
+}
 
+#chevron-left {
+    padding-left: 2px;
+}
+
+#preview-score {
+    font-size: 18px;
+    padding-left: 6px;
+    margin-top: -3px;
+}
+
+.height-10 {
+    height: 10%;
+}
+
+.new-link-inputs {
+    width: 100%;
+    margin-bottom: 2%
+}
+
+.new-group-inputs {
+    width: 100%;
+}
+
+.top-bar {
+    padding-left: 16px
+}
+
+.pointer {
+   cursor: pointer;
+}

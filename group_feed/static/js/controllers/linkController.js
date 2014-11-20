@@ -68,6 +68,8 @@ function linkController($scope, $sce, $routeParams, $window, UserFactory, $http)
 
         $http.post('/comments/', data)
             .success(function (response) {
+                console.log(response);
+                response.author = $window.localStorage.username;
                 $scope.linkComments.unshift(response);
                 console.log('weeeeee');
                 console.log(response);
@@ -88,7 +90,7 @@ function linkController($scope, $sce, $routeParams, $window, UserFactory, $http)
         var user = $window.localStorage.user_id;
 
         var data = {
-            "body": '',
+            "body": 'this is great!',
             "author": user,
             "link": parseInt(linkID),
             "parent": comment.id
