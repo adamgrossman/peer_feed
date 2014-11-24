@@ -2,6 +2,8 @@ group_feed.factory('AuthService', function ($http, $q, $window) {
     var authenticate = function (username, password, endpoint) {
         var url = '/members/' + endpoint;
         var deferred = $q.defer();
+        // Could use a urlencode function that will create the GET param string for you
+        // Also not sure why you're POSTing with GET params here
         $http.post(url, 'username=' + username + '&password=' + password, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
