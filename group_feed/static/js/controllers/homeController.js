@@ -17,6 +17,8 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
 //    $scope.newLinkDesc = '(Link Description)';
 
     $scope.linkSubmit = function () {
+        // can just do $scope.createNewLink = !$scope.createNewLink to toggle inbetween
+        // can also just do this inline in your angular view
         $scope.createNewLink = $scope.createNewLink != true;
     };
 
@@ -165,6 +167,8 @@ function homeController($scope, $window, UserFactory, $http, AuthService) {
         $scope.createNewGroup = true;
     };
 
+    // These API calls could be abstracted to be reusable
+    // Only difference mostly is the ending part of the API call
     $scope.upVote = function (link) {
         $http.post('/links/' + link.id + '/upvote/', {})
             .success(function (response) {
