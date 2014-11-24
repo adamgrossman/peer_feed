@@ -1,6 +1,7 @@
 group_feed.filter('sortMethod', function () {
     return function (posts, method) {
         var sorted = posts.slice(0);
+        // You can DRY this up, really the only difference between each filter is what field is being compared
         if (!method || method === 'top') {
             return sorted.sort(function (a,b) {
                 if (a.score > b.score)
