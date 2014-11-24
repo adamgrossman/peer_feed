@@ -14,6 +14,8 @@ class Member(AbstractUser):
     bio = models.TextField(max_length=300)
 
     def __unicode__(self):
+        # These need to be wrapped in a unicode string
+        return u"{}".format(self.username)
         return self.username
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -24,6 +26,7 @@ class Member(AbstractUser):
 
 class Group(models.Model):
     title = models.CharField(max_length=50)
+    # Use a CharField if you want to give a max_length, TextField means a large arbitrary amount
     description = models.TextField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     member = models.ManyToManyField(Member, related_name="group_members")
