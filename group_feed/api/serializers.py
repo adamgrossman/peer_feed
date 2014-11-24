@@ -3,6 +3,8 @@ from group_feed.models import Member, Group, Link, Comment, Tag, Vote
 
 
 class MemberSerializer(serializers.ModelSerializer):
+    # For most of these, can't you just use a related serializer for that model
+    # instead of having to define a function to get them?
     starred_links = serializers.SerializerMethodField('get_starred')
     groups = serializers.SerializerMethodField('get_groups')
     posted_links = serializers.SerializerMethodField('get_posted_links')
