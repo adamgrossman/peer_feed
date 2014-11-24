@@ -80,6 +80,8 @@ class LinkViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['post'])
     def upvote(self, request, pk):
         link = Link.objects.get(pk=pk)
+        # Might want to put a unique together key on voter and link
+        # since you don't want one user to have more than one vote on a link
         vote, created = Vote.objects.get_or_create(
                                    voter=request.user,
                                    link=link)
@@ -99,6 +101,7 @@ class LinkViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['post'])
     def favorite(self, request, pk):
+        # Does this mean more than one user can't favorite a link?
         link = Link.objects.get(pk=pk)
         link.star = request.user
         link.save()
